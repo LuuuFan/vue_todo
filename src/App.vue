@@ -1,48 +1,62 @@
 <template>
   <div id="app">
+    <Header />
+    <AddTodo v-on:addTodo="addTodo"/>
     <Main v-bind:todos="todos" v-on:deleteTodo="deleteTodo"/>
   </div>
 </template>
 
 <script>
 import Main from './components/main.vue'
+import Header from './components/header.vue'
+import AddTodo from './components/add_todo.vue'
 
 export default {
   name: 'app',
   data(){
     return {
-      todos: [
-          {
-            id: 1,
-            name: "Buy bread",
-            done: false,
-          },
-          {
-            id: 2,
-            name: "Learn vue",
-            done: true,
-          },
-          {
-            id: 3,
-            name: "Finish vue-todo project",
-            done: false,
-          }
-        ]
+      todos: [],
     }
   },
   components: {
-    Main
+    Header,
+    Main,
+    AddTodo,
   },
   methods: {
     deleteTodo(id) {
-      this.todos = this.todos.filter(t => t.id !== id);
-    }
-  }
+      fetch("https://jsonplaceholder.typicode.com/todos/${id}", {
+        method: 'DELETE',
+      }).then(res => res.json())
+      .then(data => {
+        this.todos = this.todos.filter(t => t.id !== id);
+      }).catch(err => console.log(err));
+    },
+    addTodo(t){
+      fetch('https://jsonplaceholder.typicode.com/todos', {
+        method: 'POST',
+        data: JSON.stringify(t),
+        headers: {
+            "Content-Type": "application/json",
+        }
+      }).then(res => res.json())
+      .then(data => {
+        this.todos = [...this.todos, Object.assign({}, data, t)];
+      }).catch(err => console.log(err));
+      // this.todos = [...this.todos, t];
+    },
+  },
+  created() {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5').then(res => res.json()).then(data => this.todos = data).catch(err => console.log(err))
+  },
 }
 </script>
 
 <style>
-#app {
+* {
+  box-sizing: border-box;
+}
+#app { 
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

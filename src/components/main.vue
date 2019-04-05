@@ -1,6 +1,5 @@
 <template>
 	<div id='main'>
-		<h1>ToDo List</h1>
 		<ul>
 			<li v-for="todo in todos" v-bind:key="todo.id">
 				<TodoItem v-bind:todo="todo" v-on:deleteTodo="$emit('deleteTodo', todo.id)"/>
@@ -30,7 +29,7 @@
 <style scoped>
 	ul{
 		list-style: none;
-		width: 100%;
+		width: calc(100% - 20px);
 		margin: 0;
 		padding: 0;
 	}
