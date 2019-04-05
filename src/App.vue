@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Main v-bind:todos="todos"/>
+    <Main v-bind:todos="todos" v-on:deleteTodo="deleteTodo"/>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
           {
             id: 2,
             name: "Learn vue",
-            done: false,
+            done: true,
           },
           {
             id: 3,
@@ -29,9 +29,14 @@ export default {
           }
         ]
     }
-  }
+  },
   components: {
     Main
+  },
+  methods: {
+    deleteTodo(id) {
+      this.todos = this.todos.filter(t => t.id !== id);
+    }
   }
 }
 </script>
@@ -43,6 +48,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 50px auto;
+  width: 50%;
 }
 </style>
