@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Main />
+    <Main v-bind:todos="todos"/>
   </div>
 </template>
 
@@ -9,6 +9,27 @@ import Main from './components/main.vue'
 
 export default {
   name: 'app',
+  data(){
+    return {
+      todos: [
+          {
+            id: 1,
+            name: "Buy bread",
+            done: false,
+          },
+          {
+            id: 2,
+            name: "Learn vue",
+            done: false,
+          },
+          {
+            id: 3,
+            name: "Finish vue-todo project",
+            done: false,
+          }
+        ]
+    }
+  }
   components: {
     Main
   }
