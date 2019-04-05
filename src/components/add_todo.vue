@@ -24,7 +24,6 @@
 					title: this.title,
 					done: false,
 				};
-				console.log(newTodo);
 				this.$emit('addTodo', newTodo);
 				this.title = "";
 			}

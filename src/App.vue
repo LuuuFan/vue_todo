@@ -1,53 +1,17 @@
 <template>
   <div id="app">
     <Header />
-    <AddTodo v-on:addTodo="addTodo"/>
-    <Main v-bind:todos="todos" v-on:deleteTodo="deleteTodo"/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Main from './components/main.vue'
 import Header from './components/header.vue'
-import AddTodo from './components/add_todo.vue'
 
 export default {
   name: 'app',
-  data(){
-    return {
-      todos: [],
-    }
-  },
   components: {
     Header,
-    Main,
-    AddTodo,
-  },
-  methods: {
-    deleteTodo(id) {
-      fetch("https://jsonplaceholder.typicode.com/todos/${id}", {
-        method: 'DELETE',
-      }).then(res => res.json())
-      .then(data => {
-        this.todos = this.todos.filter(t => t.id !== id);
-      }).catch(err => console.log(err));
-    },
-    addTodo(t){
-      fetch('https://jsonplaceholder.typicode.com/todos', {
-        method: 'POST',
-        data: JSON.stringify(t),
-        headers: {
-            "Content-Type": "application/json",
-        }
-      }).then(res => res.json())
-      .then(data => {
-        this.todos = [...this.todos, Object.assign({}, data, t)];
-      }).catch(err => console.log(err));
-      // this.todos = [...this.todos, t];
-    },
-  },
-  created() {
-    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5').then(res => res.json()).then(data => this.todos = data).catch(err => console.log(err))
   },
 }
 </script>

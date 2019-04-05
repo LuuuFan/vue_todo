@@ -2,7 +2,7 @@
 	<div id='main'>
 		<ul>
 			<li v-for="todo in todos" v-bind:key="todo.id">
-				<TodoItem v-bind:todo="todo" v-on:deleteTodo="$emit('deleteTodo', todo.id)"/>
+				<TodoItem v-bind:todo="todo" v-on:deleteTodo="$emit('deleteTodo', todo.id)" v-on:addTodo="$emit('addTodo', newTodo)"/>
 			</li>
 		</ul>
 	</div>
@@ -15,14 +15,6 @@
 		props: ["todos"],
 		components: {
 			TodoItem,
-		},
-		data(){
-			return {
-				
-			}
-		},
-		method: {
-
 		},
 	}
 </script>
