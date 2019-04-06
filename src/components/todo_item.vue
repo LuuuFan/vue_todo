@@ -30,6 +30,6 @@
 	}
 
 	.delete{
-
+		margin-left: auto;
 	}
 </style>

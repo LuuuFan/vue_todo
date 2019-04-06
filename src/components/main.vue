@@ -32,5 +32,7 @@
 		background: #f4f4f4;
 		border-bottom: 1px #ccc dotted;
 		margin-bottom: 2px;
+		display: flex;
+		align-items: center;
 	}
 </style>
