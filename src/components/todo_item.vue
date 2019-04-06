@@ -1,28 +1,27 @@
 <template>
-	<span class="todo-item" v-bind:class="{'completed': todo.completed}">
-		<input type="checkbox" v-on:change="markDone" >
-		{{ todo.title }}
-		<button class='delete' @click="$emit('deleteTodo', todo.id)">x</button>
-	</span>
+	<li class="todo-item">
+		<input type="checkbox" v-on:change="$emit('markDone', todo.id)" v-model="todo.completed">
+		<span v-bind:class="{'completed': todo.completed}">
+			{{ todo.title }}
+		</span>
+		<button class='delete' @click="$emit('deleteTodo', todo.id)">
+			<span>&times;</span>
+		</button>
+	</li>
 </template>
 <script type="text/javascript">
 	export default {
 		name: 'TodoItem',
 		props: ["todo"],
 		methods: {
-			markDone(){
-				this.todo.completed = !this.todo.completed;
-			}
 		},
 	}
 </script>
 <style>
 	.todo-item{
 		display: flex;
-	}
-
-	.delete{
-		margin-left: auto;
+		align-items: center;
+		width: 100%;
 	}
 
 	.completed{
@@ -31,5 +30,8 @@
 
 	.delete{
 		margin-left: auto;
+	}
+	.delete span{
+		text-decoration: none;
 	}
 </style>

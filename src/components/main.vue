@@ -1,9 +1,12 @@
 <template>
 	<div id='main'>
 		<ul>
-			<li v-for="todo in todos" v-bind:key="todo.id">
-				<TodoItem v-bind:todo="todo" v-on:deleteTodo="$emit('deleteTodo', todo.id)" v-on:addTodo="$emit('addTodo', newTodo)"/>
-			</li>
+			<TodoItem v-for="todo in todos" 
+				v-bind:key="todo.id" 
+				v-bind:todo="todo" 
+				v-on:deleteTodo="$emit('deleteTodo', todo.id)" 
+				v-on:markDone="$emit('markDone', todo.id)"
+			/>
 		</ul>
 	</div>
 </template>
@@ -32,7 +35,5 @@
 		background: #f4f4f4;
 		border-bottom: 1px #ccc dotted;
 		margin-bottom: 2px;
-		display: flex;
-		align-items: center;
 	}
 </style>

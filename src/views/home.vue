@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <AddTodo v-on:addTodo="addTodo"/>
-    <Main v-bind:todos="todos" v-on:deleteTodo="deleteTodo"/>
+    <Main v-bind:todos="todos" v-on:deleteTodo="deleteTodo" v-on:markDone="markDone"/>
   </div>
 </template>
 
@@ -42,6 +42,18 @@ export default {
         this.todos = [...this.todos, Object.assign({}, data, t)];
       })
     },
+    markDone(id){
+      const todo = Object.assign({}, this.todos.filter(t => t.id === id)[0]);
+      if (todo) todo.completed = !todo.completed;
+      fetch("https://jsonplaceholder.typicode.com/todos/${id}", {
+        method: 'PATCH',
+        data: JSON.stringify(todo),
+        headers: {
+            "Content-Type": "application/json",
+        }
+      }).then(res => res.json())
+        .then(data => console.log('update successfully'))
+    }
   },
   created() {
     fetch('https://jsonplaceholder.typicode.com/todos?_limit=5').then(res => res.json()).then(data => this.todos = data)
