@@ -24,7 +24,6 @@
 <style scoped>
 	ul{
 		list-style: none;
-		width: calc(100% - 20px);
 		margin: 0;
 		padding: 0;
 	}
